@@ -1,0 +1,18 @@
+# local run state produced by the scripts
+*.log
+publish_state.json
+dm_log.json
+follows_log.json
+*.caption.txt
+*.alt.txt
+
+# secrets / local config
+.env
+*.pem
+*.key
+
+# os / editor noise
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
