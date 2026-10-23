@@ -132,7 +132,7 @@ Keep exactly one Instagram target; close extras with `Target.closeTarget` — ne
 - **A notifications modal swallows clicks** → dismiss `Not now` / `Şimdi değil` before starting.
 - **`Next` or the file input does nothing** → `Next` is disabled until the upload finishes, and some builds render the input only after the "select from computer" tile; with several inputs in the DOM take the one inside `[role="dialog"]`.
 
-**Captioning.** **Never caption "the newest post"** — if the dialog never opened, that is the *previous* post and gets overwritten; gate on the crop screen or a new permalink, else abort. A typed caption missing from the published post is the API case above.
+**Captioning.** **Never caption "the newest post"** — if the dialog never opened, that is the *previous* post and gets overwritten; gate on the crop screen or a new permalink, else abort. **Typed caption absent from the published post** → Lexical state was never committed → fix it through the media API above (`caption_text`), not by retyping.
 
 **Long runs.** **`browser_exec` is cut at ~420 s** → a multi-post run cannot be one call → budgeted script (~360 s), exit cleanly, continue next call. From a shell it fails with `cdp is not defined`.
 
@@ -141,7 +141,7 @@ Keep exactly one Instagram target; close extras with `Target.closeTarget` — ne
 - **Display name is absent from `/accounts/edit/`** (bio and site only; it moved to Meta Accounts Center) → capture `POST /api/v1/web/accounts/edit/` from a bio save via the `Network` domain and replay it with `first_name` changed; `external_url` there is silently ignored.
 - **`Emulation.setUserAgentOverride` / mobile metrics drop the session** → never change the UA; restart the browser unit and the cookie comes back logged in.
 - **`browser_vault fill` refuses with "Could not determine the current page origin"** → it is looking at another tab → foreground the login tab, retry once; the vault is fine.
-- **JS escaping**: keep blocks raw (`js(r"""…""")`) and run `python3 -W error::SyntaxWarning -m py_compile scripts/*.py` after edits.
+- **`js()` block breaks on quotes/backslashes** → a JS selector pasted into a normal Python string gets mangled by escaping, so a run dies mid-flow on a syntax error → keep blocks raw (`js(r"""…""")`) and run `python3 -W error::SyntaxWarning -m py_compile scripts/*.py` after edits.
 
 ## After the post
 

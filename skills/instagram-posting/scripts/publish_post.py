@@ -247,7 +247,8 @@ typed = js(r"""(() => {
   return el ? (el.value || el.innerText || '').trim() : '';
 })()""")
 print("  caption field head:", (typed or "")[:100].replace("\n", " / "))
-need(len(typed or "") >= min(40, len(CAPTION.strip())), "caption text landed in the editor")
+flat = " ".join(CAPTION.split())[:40]
+need(bool(typed) and flat in " ".join((typed or "").split()), "caption text landed in the editor")
 
 # --- 6. dry run stops here --------------------------------------------------
 if not COMMIT:

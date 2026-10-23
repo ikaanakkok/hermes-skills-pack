@@ -41,7 +41,7 @@ Gate the send on it: if the resolved name still matches `COUNTER`, **skip that t
 
 Two more clean-ups, both visible in the message text:
 
-- Location/separator suffix: `Salon X | Ankara` → `re.split(r"\s*[|•·]\s*", s)[0]`.
+- Location/separator suffix: `Studio X | Berlin` → `re.split(r"\s*[|•·]\s*", s)[0]`.
 - Trailing emoji stack: `Studio Y 🏆🏆🏆` → strip `[\s\U0001F000-\U0001FAFF\u2600-\u27BF\uFE0F\u200D]+$`.
 
 ## 3. Context
